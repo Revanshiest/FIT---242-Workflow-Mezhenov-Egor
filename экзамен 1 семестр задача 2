@@ -1,0 +1,96 @@
+using System;
+
+public class HelloWorld
+{
+    static char[][] CreateJaggedArray()
+    {
+        Console.WriteLine("укажите количество строк");
+        int rows = Convert.ToInt32(Console.ReadLine());
+        char[][] JaggedArray = new char[rows][];
+        for (int i = 0; i< rows; i++)
+        {
+            Console.WriteLine($"размер {i+1} cтроки");
+            int Arraysize = Convert.ToInt32(Console.ReadLine());
+            JaggedArray[i] = new char[Arraysize];
+            for (int j=0; j<Arraysize; j++)
+            {
+                Console.WriteLine($"введите {j+1} элемент {i+1} строки");
+                JaggedArray[i][j] = Console.ReadKey().KeyChar;
+            }
+        }
+        Console.WriteLine("массив создан");
+        return JaggedArray;
+        
+    }
+    
+    static char[] Flatarray(char[][] JaggedArray)
+    {
+        int len = 0;
+        for (int i = 0; i < JaggedArray.Length; i++)
+        {
+            for (int j = 0; j < JaggedArray[i].Length; j++)
+            {
+                len+=1;
+            }
+        }
+        char[] FlatArray = new char[len];
+        int k=0;
+        for (int i = 0; i < JaggedArray.Length; i++)
+        {
+            for (int j = 0; j < JaggedArray[i].Length; j++)
+            {
+                FlatArray[k] = JaggedArray[i][j];
+            }
+        }
+        
+        Console.WriteLine("плоский создан");
+        return FlatArray;
+    }
+    
+    static char[] UniqueDouble(char[] FlatArray)
+    {
+        int count = 0;
+        for (int i = 0; i < FlatArray.Length; i++)
+        {
+            bool isUnique = true;
+            for (int j = i + 1; j < FlatArray.Length; j++)
+                {
+                    if (FlatArray[i] == FlatArray[j])
+                    {
+                        isUnique = false;
+                        break;
+                    }
+                }
+           if (isUnique)
+           {
+               count++;
+           }
+        }
+        Console.WriteLine($"количество уникальных элементов {count}");
+        char[] DoubleEl = new char[count];
+        Array.Sort(FlatArray);
+        int k = 0;
+        Console.WriteLine("отсортированно");
+        
+        for (int i=1; i<FlatArray.Length; i++)
+        {
+            int index = Array.IndexOf(DoubleEl, FlatArray[i]);
+            if (FlatArray[i] == FlatArray[i-1] && index == -1)
+            {
+                DoubleEl[k] = FlatArray[i];
+            }
+        }
+        Console.WriteLine("двойные получены");
+        return DoubleEl;
+    }
+     public static void Main(string[] args)
+    {
+        char[][] MyArr = CreateJaggedArray();
+        char[] MyFlatArr = Flatarray(MyArr);
+        char[] UniqDoubleEl = UniqueDouble(MyFlatArr);
+        for (int i = 0; i < UniqDoubleEl.Length; i++)
+        {
+            Console.WriteLine(UniqDoubleEl[i]);
+        }
+    }
+}
