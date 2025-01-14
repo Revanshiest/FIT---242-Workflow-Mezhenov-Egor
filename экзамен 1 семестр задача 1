@@ -61,6 +61,13 @@ public class HelloWorld
                 ind2 = ind3;
             }
         }
-        Console.WriteLine(distance);
+        if (distance > 0)
+        {
+            Console.WriteLine(distance);
+        }
+        else
+        {
+             Console.WriteLine("нет двух локальных минимумов");
+        }
     }
 }
